@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o arrayUtils.o BubbleSort.o
-LINKOBJ  = main.o arrayUtils.o BubbleSort.o
+OBJ      = main.o BubbleSort.o arrayUtils.o
+LINKOBJ  = main.o BubbleSort.o arrayUtils.o
 LIBS     = -L"D:/dev/Dev-Cpp/MinGW64/lib" -L"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -27,8 +27,8 @@ $(BIN): $(OBJ)
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
-arrayUtils.o: arrayUtils.cpp
-	$(CPP) -c arrayUtils.cpp -o arrayUtils.o $(CXXFLAGS)
-
 BubbleSort.o: BubbleSort.cpp
 	$(CPP) -c BubbleSort.cpp -o BubbleSort.o $(CXXFLAGS)
+
+arrayUtils.o: arrayUtils.cpp
+	$(CPP) -c arrayUtils.cpp -o arrayUtils.o $(CXXFLAGS)
