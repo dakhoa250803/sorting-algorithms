@@ -1,6 +1,3 @@
-#include <cstring>
-#include <stdlib.h>
-
 #include "arrayUtils.h"
 #include "BubbleSort.h"
 
@@ -16,25 +13,6 @@ T* BubbleSort<T>::sort(T* sourceArr, size_t length, SORT_TYPE sortType) {
 		}
 
 	return sortedArr;
-}
-
-// clone  => 2 arrays => clone => 3 arr
-// resize => 1 bigger/smaller array
-
-template <class T>
-T* BubbleSort<T>::_cloneArray(T* sourceArr, size_t length) {
-	size_t blockSize = (length * sizeof(T));
-//	T* newArr = (T*)malloc(blockSize);
-	T* newArr = new T[length];
-	memcpy(newArr, sourceArr, blockSize);
-	return newArr;
-}
-
-template <class T>
-void BubbleSort<T>::_swap(T &a, T &b) {
-	T c = a;
-	a = b;
-	b = c;
 }
 
 template class BubbleSort<int>;

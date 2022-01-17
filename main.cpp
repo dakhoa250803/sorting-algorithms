@@ -4,6 +4,9 @@
 #include "arrayUtils.h"
 #include "ISortingStrategy.h"
 #include "BubbleSort.h"
+#include "SelectionSort.h"
+#include "InsertionSort.h"
+
 using namespace std;
 
 typedef int data_t;
@@ -12,7 +15,9 @@ const size_t ARR_LEN = 30;
 data_t* generateArray();
 
 int main(int argc, char** argv) {
-	ISortingStrategy<data_t>* sorter = new BubbleSort<data_t>();
+//	ISortingStrategy<data_t>* sorter = new BubbleSort<data_t>();
+//	ISortingStrategy<data_t>* sorter = new SelectionSort<data_t>();
+	ISortingStrategy<data_t>* sorter = new InsertionSort<data_t>();
 	cout << "Generating array..." << endl;
 	data_t* arr = generateArray();
 	printArray(arr, ARR_LEN);
