@@ -17,8 +17,6 @@ T* InsertionSort<T>::sort(T* sourceArr, size_t length, SORT_TYPE sortType) {
 			k--;
     	} 
     	sortedArr[k + 1] = pivot;
-	
-         
     } 
 		
 	return sortedArr;

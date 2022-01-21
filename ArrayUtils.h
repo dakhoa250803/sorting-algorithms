@@ -14,8 +14,9 @@ void printArray(int *arr, size_t length);
 
 template <typename T>
 void destroyArray(T* arr) {
-	printf("Destroying array...");
+	printf("Destroying array...\n");
 	delete[] arr;
+
 }
 
 template <typename T>

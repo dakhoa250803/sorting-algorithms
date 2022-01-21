@@ -6,7 +6,7 @@
 #include "BubbleSort.h"
 #include "SelectionSort.h"
 #include "InsertionSort.h"
-
+#include "Menu.h"
 
 using namespace std;
 
@@ -18,13 +18,41 @@ data_t* generateArray();
 void BubbleSortEx();
 void SelectionSortEx();
 void InsertionSortEx();
+void doMenu(int choose);
+void selectSortType();
 
 int main(int argc, char** argv) {
-	//BubbleSortEx();
-	//SelectionSortEx();
-	InsertionSortEx();
+	selectSortType();
+	return 0;
 }
 
+void selectSortType(){
+	bool shouldExit = true;
+	do{
+		showMenu();
+		int choice = chooseMenu();
+		if(choice == 0)
+			shouldExit = false;
+		else{
+			doMenu(choice);
+		}
+	}
+	while(shouldExit);
+}
+
+void doMenu(int choice){
+	switch(choice){
+		case 1 :
+			SelectionSortEx();
+			break;
+		case 2 :
+			BubbleSortEx();
+			break;
+		case 3 :
+			InsertionSortEx();
+			break;
+	}
+}
 
 void InsertionSortEx(){
 	ISortingStrategy<data_t>* sorter = new InsertionSort<data_t>();
