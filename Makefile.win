@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o
-LINKOBJ  = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o
+OBJ      = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o
+LINKOBJ  = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o
 LIBS     = -L"D:/dev/Dev-Cpp/MinGW64/lib" -L"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -38,3 +38,9 @@ SelectionSort.o: SelectionSort.cpp
 
 InsertionSort.o: InsertionSort.cpp
 	$(CPP) -c InsertionSort.cpp -o InsertionSort.o $(CXXFLAGS)
+
+utils.o: utils.cpp
+	$(CPP) -c utils.cpp -o utils.o $(CXXFLAGS)
+
+Menu.o: Menu.cpp
+	$(CPP) -c Menu.cpp -o Menu.o $(CXXFLAGS)

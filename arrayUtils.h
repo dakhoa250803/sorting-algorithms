@@ -3,11 +3,6 @@
 
 #include <stdio.h>
 
-/**
- * Generates a random integer whose value is from lowest (inclusive) to highest (exclusive).
- */
-int randomIntegerInRange(int lowest, int highest);
-
 int* randomIntArray(size_t length);
 
 void printArray(int *arr, size_t length);

@@ -6,6 +6,7 @@
 #include "BubbleSort.h"
 #include "SelectionSort.h"
 #include "InsertionSort.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -15,6 +16,13 @@ const size_t ARR_LEN = 30;
 data_t* generateArray();
 
 int main(int argc, char** argv) {
+	Menu *menu = new Menu("SORTING ALGORITHMS", "What is your favourite?");
+	menu->addItem("Bubble sort");
+	menu->addItem("Insertion sort");
+	menu->addItem("Selection sort");
+	menu->render();
+
+
 //	ISortingStrategy<data_t>* sorter = new BubbleSort<data_t>();
 //	ISortingStrategy<data_t>* sorter = new SelectionSort<data_t>();
 	ISortingStrategy<data_t>* sorter = new InsertionSort<data_t>();
