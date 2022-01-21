@@ -1,5 +1,7 @@
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <string>
 #include <windows.h>
 #include "utils.h"
 /*
@@ -11,6 +13,12 @@ void gotoxy(short x, short y) {
 	cursorPosition.X = x;
 	cursorPosition.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+}
+
+void printxy(short x, short y, std::string content) {
+	gotoxy(x, y);
+	std::cout << content;
+	gotoxy(0, 0);
 }
 
 void clearScreen() {

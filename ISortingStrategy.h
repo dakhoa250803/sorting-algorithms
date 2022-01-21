@@ -2,6 +2,7 @@
 #define __SORTING_STRATEGY__
 
 enum SORT_TYPE {
+	SORT_INVALID = 0,
 	SORT_ASC = 1,   // ascending
 	SORT_DESC = -1  // descending
 };
