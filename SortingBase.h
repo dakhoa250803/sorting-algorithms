@@ -5,16 +5,15 @@
 //#include <stdlib.h>
 
 template <class T> class SortingBase {
-	protected:
+	protected:		
 		T* _cloneArray(T* sourceArr, size_t length) {
 			size_t blockSize = (length * sizeof(T));
-		//	T* newArr = (T*)malloc(blockSize);
+			// T* newArr = (T*)malloc(blockSize)
 			T* newArr = new T[length];
 			memcpy(newArr, sourceArr, blockSize);
 			return newArr;
 		}
-		
-		
+
 		void _swap(T &a, T &b) {
 			T c = a;
 			a = b;

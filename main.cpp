@@ -2,70 +2,102 @@
 #include <iostream>
 
 #include "arrayUtils.h"
+#include "keyboard.h"
 #include "ISortingStrategy.h"
 #include "BubbleSort.h"
 #include "SelectionSort.h"
 #include "InsertionSort.h"
-
+#include "Menu.h"
 
 using namespace std;
 
 typedef int data_t;
 const size_t ARR_LEN = 30;
+const size_t SORTER_NUM = 3;
 
+struct Sorter {
+	Sorter(string name, ISortingStrategy<data_t> *strategy) {
+		this->name = name;
+		this->strategy = strategy;
+	}
+
+	string name;
+	ISortingStrategy<data_t> *strategy;
+};
+
+
+Sorter* selectSorter();
+SORT_TYPE selectSortType();
 data_t* generateArray();
+void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType);
 
-void BubbleSortEx();
-void SelectionSortEx();
-void InsertionSortEx();
+
+Sorter *supportedSorters[] = {
+	new Sorter("Bubble Sort", new BubbleSort<data_t>()),
+	new Sorter("Insertion Sort", new InsertionSort<data_t>()),
+	new Sorter("Selection Sort", new SelectionSort<data_t>()),
+};
 
 int main(int argc, char** argv) {
-	//BubbleSortEx();
-	//SelectionSortEx();
-	InsertionSortEx();
+	do {
+		Sorter *sorter = selectSorter();
+		if (!sorter) break;
+		
+		SORT_TYPE sortType = selectSortType();
+		if (sortType == SORT_INVALID) break;
+
+		data_t* arr = generateArray();
+		sortArray(arr, sorter, sortType);
+		destroyArray(arr);
+
+		cout << endl << "Press any key to continue" << endl;
+		getKeyPressed();
+	}
+	while(true);
+
+	cout << "Good bye! We will miss you!";
+	return 0;
 }
 
-
-void InsertionSortEx(){
-	ISortingStrategy<data_t>* sorter = new InsertionSort<data_t>();
-	cout << "Generating array..." << endl;
-	data_t* arr = generateArray();
-	printArray(arr, ARR_LEN);
+Sorter* selectSorter() {
+	Menu *menu = new Menu("SORTING ALGORITHMS", "What is your favorite?");
+	for (int i = 0; i < SORTER_NUM; ++i) {
+		menu->addItem(supportedSorters[i]->name);
+	}
+	menu->addItem("Exit");
+	size_t selectedIdx = menu->renderAndWait();
 	
-	cout << endl << "After sort:" << endl;
-	data_t* sortedArr = sorter->sort(arr, ARR_LEN, SORT_DESC);
-	printArray(sortedArr, ARR_LEN);
-
-	destroyArray(arr);
+	if (selectedIdx >= SORTER_NUM) return NULL;
+	Sorter *sorter = supportedSorters[selectedIdx];
+	return sorter;
 }
 
-void SelectionSortEx(){
-	ISortingStrategy<data_t>* sorter = new SelectionSort<data_t>();
-	cout << "Generating array..." << endl;
-	data_t* arr = generateArray();
-	printArray(arr, ARR_LEN);
+SORT_TYPE selectSortType() {
+	Menu *menu = new Menu("Sort direction?");
+	menu->addItem("Ascending");
+	menu->addItem("Descending");
+	menu->addItem("Exit");
+	size_t selectedIdx = menu->renderAndWait();
 	
-	cout << endl << "After sort:" << endl;
-	data_t* sortedArr = sorter->sort(arr, ARR_LEN, SORT_DESC);
-	printArray(sortedArr, ARR_LEN);
-
-	destroyArray(arr);
-}
-
-void BubbleSortEx(){
-	ISortingStrategy<data_t>* sorter = new BubbleSort<data_t>();
-	cout << "Generating array..." << endl;
-	data_t* arr = generateArray();
-	printArray(arr, ARR_LEN);
-	
-	cout << endl << "After sort:" << endl;
-	data_t* sortedArr = sorter->sort(arr, ARR_LEN, SORT_DESC);
-	printArray(sortedArr, ARR_LEN);
-
-	destroyArray(arr);
+	switch(selectedIdx) {
+		case 0: return SORT_ASC;
+		case 1: return SORT_DESC;
+		default: return SORT_INVALID;
+	}
 }
 
 data_t* generateArray() {
+	cout << "Generating array..." << endl;
 	data_t* arr = randomIntArray(ARR_LEN);
+	printArray(arr, ARR_LEN);
 	return arr;
 }
+
+void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {	
+	ISortingStrategy<data_t>* strategy = sorter->strategy;
+	cout << endl << "After sort with: " << sorter->name << endl;
+	data_t* sortedArr = strategy->sort(arr, ARR_LEN, sortType);
+	printArray(arr, ARR_LEN);
+}
+	
+	

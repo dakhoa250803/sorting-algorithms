@@ -3,23 +3,11 @@
 #include <stdio.h>
 #include <windows.h>
 
+#include "utils.h"
+
 #define MAX_VAL 1000
 const int MIN_VAL = 10;
 
-/**
- * Generates a random integer whose value is from lowest (inclusive) to highest (exclusive).
- */
-int randomIntegerInRange(int lowest, int highest) { 
-	static bool first = true;
-	if (first) 
-	{  
-	  srand((unsigned)time(0)); //seeding for the first time only!
-	  first = false;
-	}
-    int range=(highest-lowest)+1; 
-    int random_integer = lowest+int(range*rand()/(RAND_MAX + 1.0)); 
-    return random_integer;
-}
 
 int* randomIntArray(size_t length) {
 	int* arr = new int[length];
