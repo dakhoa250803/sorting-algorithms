@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <iostream>
+#include <windows.h>
 
 #include "arrayUtils.h"
 #include "keyboard.h"
@@ -8,6 +9,7 @@
 #include "SelectionSort.h"
 #include "InsertionSort.h"
 #include "Menu.h"
+#include "ArrayRenderer.h"
 
 using namespace std;
 
@@ -47,7 +49,15 @@ int main(int argc, char** argv) {
 		if (sortType == SORT_INVALID) break;
 
 		data_t* arr = generateArray();
-		sortArray(arr, sorter, sortType);
+		ArrayRenderer<data_t>* renderer = new ArrayRenderer<data_t>(arr, ARR_LEN);
+		
+		COORD fromCoord;
+		fromCoord.X = 1;
+		fromCoord.Y = 1;
+		renderer->render(fromCoord);
+
+		//sortArray(arr, sorter, sortType);
+		cout << endl << endl;
 		destroyArray(arr);
 
 		cout << endl << "Press any key to continue" << endl;
@@ -89,13 +99,13 @@ SORT_TYPE selectSortType() {
 data_t* generateArray() {
 	cout << "Generating array..." << endl;
 	data_t* arr = randomIntArray(ARR_LEN);
-	printArray(arr, ARR_LEN);
+	//printArray(arr, ARR_LEN);
 	return arr;
 }
 
-void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {	
+void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {
 	ISortingStrategy<data_t>* strategy = sorter->strategy;
 	cout << endl << "After sort with: " << sorter->name << endl;
 	data_t* sortedArr = strategy->sort(arr, ARR_LEN, sortType);
-	printArray(sortedArr, ARR_LEN);
+	//printArray(sortedArr, ARR_LEN);
 }
