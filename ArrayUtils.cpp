@@ -5,8 +5,8 @@
 
 #include "utils.h"
 
-#define MAX_VAL 1000
-const int MIN_VAL = 10;
+#define MAX_VAL 40
+const int MIN_VAL = 1;
 
 
 int* randomIntArray(size_t length) {

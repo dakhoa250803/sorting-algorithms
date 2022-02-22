@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <iostream>
+#include <windows.h>
 
 #include "arrayUtils.h"
 #include "keyboard.h"
@@ -8,6 +9,7 @@
 #include "SelectionSort.h"
 #include "InsertionSort.h"
 #include "Menu.h"
+#include "ArrayRenderer.h"
 
 using namespace std;
 
@@ -26,11 +28,12 @@ struct Sorter {
 };
 
 
+
 Sorter* selectSorter();
 SORT_TYPE selectSortType();
 data_t* generateArray();
 void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType);
-
+void updateArrayRenderer(size_t changedIndex);
 
 Sorter *supportedSorters[] = {
 	new Sorter("Bubble Sort", new BubbleSort<data_t>()),
@@ -38,7 +41,10 @@ Sorter *supportedSorters[] = {
 	new Sorter("Selection Sort", new SelectionSort<data_t>()),
 };
 
+ArrayRenderer<data_t>* arrRenderer;
+
 int main(int argc, char** argv) {
+	
 	do {
 		Sorter *sorter = selectSorter();
 		if (!sorter) break;
@@ -47,7 +53,16 @@ int main(int argc, char** argv) {
 		if (sortType == SORT_INVALID) break;
 
 		data_t* arr = generateArray();
+		arrRenderer = new ArrayRenderer<data_t>(arr, ARR_LEN);
+		
+		COORD fromCoord;
+		fromCoord.X = 1;
+		fromCoord.Y = 1;
+		size_t changedIndex;
+		arrRenderer->render(fromCoord, changedIndex);
+
 		sortArray(arr, sorter, sortType);
+		cout << endl << endl;
 		destroyArray(arr);
 
 		cout << endl << "Press any key to continue" << endl;
@@ -89,15 +104,21 @@ SORT_TYPE selectSortType() {
 data_t* generateArray() {
 	cout << "Generating array..." << endl;
 	data_t* arr = randomIntArray(ARR_LEN);
-	printArray(arr, ARR_LEN);
 	return arr;
 }
 
-void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {	
+void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {
 	ISortingStrategy<data_t>* strategy = sorter->strategy;
 	cout << endl << "After sort with: " << sorter->name << endl;
+	
+	strategy->subscribe("sortItem", updateArrayRenderer);
 	data_t* sortedArr = strategy->sort(arr, ARR_LEN, sortType);
-	printArray(arr, ARR_LEN);
 }
-	
-	
+
+void updateArrayRenderer(size_t changedIndex){
+	COORD fromCoord;
+	fromCoord.X = 1;
+	fromCoord.Y = 1;
+	arrRenderer->render(fromCoord, changedIndex);
+	Sleep(100);
+}	
