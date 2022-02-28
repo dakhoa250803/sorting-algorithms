@@ -10,7 +10,7 @@ T* InsertionSort<T>::sort(T* sourceArr, size_t length, SORT_TYPE sortType) {
 	for (int i = 1; i < length; i++)
     { 
         T pivot = sortedArr[i]; 
-        size_t k = i - 1; 
+        long k = i - 1; 
     	while (k >= 0){
     		short cmp = compare(sortedArr[k], pivot);
     		if(cmp != sortType) break;
