@@ -5,7 +5,7 @@
 
 #include "utils.h"
 
-#define MAX_VAL 5000
+#define MAX_VAL 50
 const int MIN_VAL = 1;
 
 

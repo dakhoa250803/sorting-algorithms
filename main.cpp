@@ -11,15 +11,17 @@
 #include "InsertionSort.h"
 #include "Menu.h"
 #include "ArrayRenderer.h"
+#include "QuickSort.h"
 
 //#define ENABLED_ANIMATION 1
+//#define PRINT_ARR 1
 
 using namespace std;
 using namespace std::chrono;
 
 typedef int data_t;
-const size_t ARR_LEN = 5000;
-const size_t SORTER_NUM = 3;
+const size_t ARR_LEN = 20000;
+const size_t SORTER_NUM = 4;
 
 struct Sorter {
 	Sorter(string name, ISortingStrategy<data_t> *strategy) {
@@ -44,8 +46,9 @@ void updateArrayRenderer(size_t changedIndex);
 
 Sorter *supportedSorters[] = {
 	new Sorter("Bubble Sort", new BubbleSort<data_t>()),
-	new Sorter("Insertion Sort", new InsertionSort<data_t>()),
-	new Sorter("Selection Sort", new SelectionSort<data_t>()),
+	new Sorter("Selection Sort", new InsertionSort<data_t>()),
+	new Sorter("Insertion Sort", new SelectionSort<data_t>()),
+	new Sorter("Quick Sort", new QuickSort<data_t>()),
 };
 
 ArrayRenderer<data_t>* arrRenderer;
@@ -66,7 +69,7 @@ int main(int argc, char** argv) {
 		fromCoord.X = 1;
 		fromCoord.Y = 1;
 		size_t changedIndex;
-//		arrRenderer->render(fromCoord, changedIndex);
+		//arrRenderer->render(fromCoord, changedIndex);
 		
 		
 		sortArray(arr, sorter, sortType);
@@ -119,8 +122,8 @@ SORT_TYPE selectSortType() {
 data_t* generateArray() {
 	cout << "Generating array..." << endl;
 	data_t* arr = randomIntArray(ARR_LEN);
-	#ifndef ENABLED_ANIMATION
-	//printArray(arr,ARR_LEN);
+	#ifdef PRINT_ARR
+	printArray(arr,ARR_LEN);
 	#endif
 	return arr;
 }
@@ -139,9 +142,13 @@ void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {
 	
 	data_t* sortedArr = strategy->sort(arr, ARR_LEN, sortType);
 	
+	#ifdef PRINT_ARR
+	printArray(arr,ARR_LEN);
+	#endif
+	
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
-	cout << "Sort speech: " << duration.count() << endl;
+	cout << "Sort speed: " << duration.count() << "ms"<< endl;
 }
 
 #ifdef ENABLED_ANIMATION
