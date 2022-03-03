@@ -4,14 +4,14 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o keyboard.o ArrayRenderer.o console.o
-LINKOBJ  = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o keyboard.o ArrayRenderer.o console.o
+OBJ      = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o keyboard.o ArrayRenderer.o console.o SortingBase.o QuickSort.o
+LINKOBJ  = main.o BubbleSort.o arrayUtils.o SelectionSort.o InsertionSort.o utils.o Menu.o keyboard.o ArrayRenderer.o console.o SortingBase.o QuickSort.o
 LIBS     = -L"D:/dev/Dev-Cpp/MinGW64/lib" -L"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/dev/Dev-Cpp/MinGW64/include" -I"D:/dev/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/dev/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = sorting-algorithms.exe
-CXXFLAGS = $(CXXINCS) -g3
-CFLAGS   = $(INCS) -g3
+CXXFLAGS = $(CXXINCS) -g3 -std=c++11
+CFLAGS   = $(INCS) -g3 -std=c++11
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -53,3 +53,9 @@ ArrayRenderer.o: ArrayRenderer.cpp
 
 console.o: console.cpp
 	$(CPP) -c console.cpp -o console.o $(CXXFLAGS)
+
+SortingBase.o: SortingBase.cpp
+	$(CPP) -c SortingBase.cpp -o SortingBase.o $(CXXFLAGS)
+
+QuickSort.o: QuickSort.cpp
+	$(CPP) -c QuickSort.cpp -o QuickSort.o $(CXXFLAGS)

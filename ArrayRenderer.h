@@ -6,7 +6,7 @@
 template <class T> class ArrayRenderer {
 	public:
 		ArrayRenderer(T* targetArr, size_t length);
-		render(COORD fromTopLeft);
+		render(COORD fromTopLeft, size_t highlightIndex);
 	
 	private:
 		T* _arr;

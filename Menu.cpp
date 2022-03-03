@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "console.h"
 #include "keyboard.h"
 #include "utils.h"
 #include "Menu.h"
@@ -50,6 +51,7 @@ size_t Menu::size() {
 size_t Menu::renderAndWait() {
 	clearScreen();
 	gotoxy(0, 0);
+	setYellowText();	
 	this->_renderTitle();
 	this->_renderMenuItems();
 	return this->_waitForUserSelection();

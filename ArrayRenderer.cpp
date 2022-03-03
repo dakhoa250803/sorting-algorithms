@@ -17,22 +17,23 @@ ArrayRenderer<T>::ArrayRenderer(T* targetArr, size_t length) {
 }
 
 template <class T>
-ArrayRenderer<T>::render(COORD fromTopLeft) {
+ArrayRenderer<T>::render(COORD fromTopLeft, size_t highlightIndex) {
 	clearScreen();
 	gotoxy(fromTopLeft.X, fromTopLeft.Y);
 
 	for (int i = 0; i < this->_length; ++i) {
-		setYellowText();
+		setLightWhiteText();
 		cout << setw(3) << this->_arr[i];
 	}
 
 	short offsetTop = fromTopLeft.Y + 1;
 
-	T maxVal = this->_maxValue();
-	setLightGreenText();
+	T maxVal = this->_maxValue();	
 	for (int j = 0; j < maxVal; ++j) {
 		gotoxy(fromTopLeft.X, offsetTop++);
 		for (int i = 0; i < this->_length; ++i) {
+			if (i == highlightIndex) setYellowText();
+			else setLightGreenText();
 			cout << setw(3) << (j < this->_arr[i] ? DOT : ' ');
 		}
 	}
