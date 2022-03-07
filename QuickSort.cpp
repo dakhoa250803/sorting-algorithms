@@ -37,7 +37,7 @@ void QuickSort<T>::_quickSort(T* arr, size_t lowIdx, size_t highIdx){
 	T midIdx = this->_partition(arr,lowIdx,highIdx);
 	this->_quickSort(arr,lowIdx,midIdx);
 	this->_quickSort(arr,midIdx + 1,highIdx);
-	
+	this->_emit("sortItem", highIdx);
 }
 
 template <class T>

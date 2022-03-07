@@ -13,14 +13,14 @@
 #include "ArrayRenderer.h"
 #include "QuickSort.h"
 
-//#define ENABLED_ANIMATION 1
-//#define PRINT_ARR 1
+#define ENABLED_ANIMATION 1
+#define PRINT_ARR 1
 
 using namespace std;
 using namespace std::chrono;
 
 typedef int data_t;
-const size_t ARR_LEN = 20000;
+const size_t ARR_LEN = 30;
 const size_t SORTER_NUM = 4;
 
 struct Sorter {
@@ -69,7 +69,10 @@ int main(int argc, char** argv) {
 		fromCoord.X = 1;
 		fromCoord.Y = 1;
 		size_t changedIndex;
-		//arrRenderer->render(fromCoord, changedIndex);
+		
+		#ifdef ENABLED_ANIMATION
+		arrRenderer->render(fromCoord, changedIndex);
+		#endif
 		
 		
 		sortArray(arr, sorter, sortType);
@@ -138,17 +141,21 @@ void sortArray(data_t* arr, Sorter *sorter, SORT_TYPE sortType) {
 	strategy->subscribe("sortItem", updateArrayRenderer);
 	#endif
 	
+	#ifndef ENABLED_ANIMATION
 	auto start = high_resolution_clock::now();
+	#endif
 	
 	data_t* sortedArr = strategy->sort(arr, ARR_LEN, sortType);
 	
-	#ifdef PRINT_ARR
+	#ifndef ENABLED_ANIMATION
 	printArray(arr,ARR_LEN);
 	#endif
 	
+	#ifndef ENABLED_ANIMATION
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
 	cout << "Sort speed: " << duration.count() << "ms"<< endl;
+	#endif
 }
 
 #ifdef ENABLED_ANIMATION
